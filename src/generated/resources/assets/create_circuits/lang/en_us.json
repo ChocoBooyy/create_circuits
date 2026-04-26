@@ -1,0 +1,16 @@
+{
+  "block.create_circuits.adder": "Adder",
+  "block.create_circuits.and_gate": "AND Gate",
+  "block.create_circuits.max": "Max",
+  "block.create_circuits.min": "Min",
+  "block.create_circuits.multiplier": "Multiplier",
+  "block.create_circuits.nand_gate": "NAND Gate",
+  "block.create_circuits.nor_gate": "NOR Gate",
+  "block.create_circuits.not_gate": "NOT Gate",
+  "block.create_circuits.or_gate": "OR Gate",
+  "block.create_circuits.rs_latch": "RS Latch",
+  "block.create_circuits.subtractor": "Subtractor",
+  "block.create_circuits.xnor_gate": "XNOR Gate",
+  "block.create_circuits.xor_gate": "XOR Gate",
+  "itemGroup.create_circuits": "Create: Circuits"
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "create_circuits:block/circuit_base",
+  "textures": {
+    "indicator": "create_circuits:block/multiplier/multiplier_10",
+    "particle": "create_circuits:block/multiplier/multiplier_10"
+  }
+}

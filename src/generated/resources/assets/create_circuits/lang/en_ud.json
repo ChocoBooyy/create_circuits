@@ -1,0 +1,15 @@
+{
+  "block.create_circuits.adder": "ɹǝppⱯ",
+  "block.create_circuits.and_gate": "ǝʇɐ⅁ puⱯ",
+  "block.create_circuits.max": "xɐW",
+  "block.create_circuits.min": "uıW",
+  "block.create_circuits.multiplier": "ɹǝıןdıʇןnW",
+  "block.create_circuits.nand_gate": "ǝʇɐ⅁ puɐN",
+  "block.create_circuits.nor_gate": "ǝʇɐ⅁ ɹoN",
+  "block.create_circuits.not_gate": "ǝʇɐ⅁ ʇoN",
+  "block.create_circuits.or_gate": "ǝʇɐ⅁ ɹO",
+  "block.create_circuits.rs_latch": "ɥɔʇɐꞀ sᴚ",
+  "block.create_circuits.subtractor": "ɹoʇɔɐɹʇqnS",
+  "block.create_circuits.xnor_gate": "ǝʇɐ⅁ ɹouX",
+  "block.create_circuits.xor_gate": "ǝʇɐ⅁ ɹoX"
+}
