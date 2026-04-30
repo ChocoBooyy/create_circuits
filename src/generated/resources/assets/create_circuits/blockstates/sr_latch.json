@@ -1,63 +1,63 @@
 {
   "variants": {
     "facing=east,input_a=false,input_b=false": {
-      "model": "create_circuits:block/rs_latch_00",
+      "model": "create_circuits:block/sr_latch_00",
       "y": 270
     },
     "facing=east,input_a=false,input_b=true": {
-      "model": "create_circuits:block/rs_latch_01",
+      "model": "create_circuits:block/sr_latch_01",
       "y": 270
     },
     "facing=east,input_a=true,input_b=false": {
-      "model": "create_circuits:block/rs_latch_10",
+      "model": "create_circuits:block/sr_latch_10",
       "y": 270
     },
     "facing=east,input_a=true,input_b=true": {
-      "model": "create_circuits:block/rs_latch_11",
+      "model": "create_circuits:block/sr_latch_11",
       "y": 270
     },
     "facing=north,input_a=false,input_b=false": {
-      "model": "create_circuits:block/rs_latch_00",
+      "model": "create_circuits:block/sr_latch_00",
       "y": 180
     },
     "facing=north,input_a=false,input_b=true": {
-      "model": "create_circuits:block/rs_latch_01",
+      "model": "create_circuits:block/sr_latch_01",
       "y": 180
     },
     "facing=north,input_a=true,input_b=false": {
-      "model": "create_circuits:block/rs_latch_10",
+      "model": "create_circuits:block/sr_latch_10",
       "y": 180
     },
     "facing=north,input_a=true,input_b=true": {
-      "model": "create_circuits:block/rs_latch_11",
+      "model": "create_circuits:block/sr_latch_11",
       "y": 180
     },
     "facing=south,input_a=false,input_b=false": {
-      "model": "create_circuits:block/rs_latch_00"
+      "model": "create_circuits:block/sr_latch_00"
     },
     "facing=south,input_a=false,input_b=true": {
-      "model": "create_circuits:block/rs_latch_01"
+      "model": "create_circuits:block/sr_latch_01"
     },
     "facing=south,input_a=true,input_b=false": {
-      "model": "create_circuits:block/rs_latch_10"
+      "model": "create_circuits:block/sr_latch_10"
     },
     "facing=south,input_a=true,input_b=true": {
-      "model": "create_circuits:block/rs_latch_11"
+      "model": "create_circuits:block/sr_latch_11"
     },
     "facing=west,input_a=false,input_b=false": {
-      "model": "create_circuits:block/rs_latch_00",
+      "model": "create_circuits:block/sr_latch_00",
       "y": 90
     },
     "facing=west,input_a=false,input_b=true": {
-      "model": "create_circuits:block/rs_latch_01",
+      "model": "create_circuits:block/sr_latch_01",
       "y": 90
     },
     "facing=west,input_a=true,input_b=false": {
-      "model": "create_circuits:block/rs_latch_10",
+      "model": "create_circuits:block/sr_latch_10",
       "y": 90
     },
     "facing=west,input_a=true,input_b=true": {
-      "model": "create_circuits:block/rs_latch_11",
+      "model": "create_circuits:block/sr_latch_11",
       "y": 90
     }
   }

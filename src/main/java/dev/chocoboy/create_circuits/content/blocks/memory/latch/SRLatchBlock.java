@@ -16,17 +16,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
-public class RSLatchBlock extends AbstractFlipFlopBlock implements IBE<RSLatchBE> {
+public class SRLatchBlock extends AbstractFlipFlopBlock implements IBE<SRLatchBE> {
 
     public static final BooleanProperty INPUT_A = BooleanProperty.create("input_a");
     public static final BooleanProperty INPUT_B = BooleanProperty.create("input_b");
 
-    public RSLatchBlock(Properties properties) {
+    public SRLatchBlock(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any()
-            .setValue(FACING, Direction.NORTH)
-            .setValue(INPUT_A, false)
-            .setValue(INPUT_B, false));
+                .setValue(FACING, Direction.NORTH)
+                .setValue(INPUT_A, false)
+                .setValue(INPUT_B, false));
     }
 
     @Override
@@ -37,25 +37,24 @@ public class RSLatchBlock extends AbstractFlipFlopBlock implements IBE<RSLatchBE
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return defaultBlockState()
-            .setValue(FACING, context.getHorizontalDirection().getOpposite())
-            .setValue(INPUT_A, false)
-            .setValue(INPUT_B, false);
+                .setValue(FACING, context.getHorizontalDirection().getOpposite())
+                .setValue(INPUT_A, false)
+                .setValue(INPUT_B, false);
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block,
-                                BlockPos fromPos, boolean moving) {
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean moving) {
         if (!level.isClientSide) {
             Direction facing = state.getValue(FACING);
             SignalInputs inputs = SignalReaders.readInputs(level, pos, facing, true);
             BlockState newState = state
-                .setValue(INPUT_A, inputs.a() > 0)
-                .setValue(INPUT_B, inputs.b() > 0);
+                    .setValue(INPUT_A, inputs.a() > 0)
+                    .setValue(INPUT_B, inputs.b() > 0);
             if (!newState.equals(state)) {
                 level.setBlock(pos, newState, 2);
             }
             BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof RSLatchBE latch) latch.onNeighborChanged();
+            if (be instanceof SRLatchBE latch) latch.onNeighborChanged();
         }
     }
 
@@ -65,29 +64,29 @@ public class RSLatchBlock extends AbstractFlipFlopBlock implements IBE<RSLatchBE
             Direction facing = state.getValue(FACING);
             SignalInputs inputs = SignalReaders.readInputs(level, pos, facing, true);
             BlockState newState = state
-                .setValue(INPUT_A, inputs.a() > 0)
-                .setValue(INPUT_B, inputs.b() > 0);
+                    .setValue(INPUT_A, inputs.a() > 0)
+                    .setValue(INPUT_B, inputs.b() > 0);
             if (!newState.equals(state)) {
                 level.setBlock(pos, newState, 2);
             }
             BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof RSLatchBE latch) latch.onNeighborChanged();
+            if (be instanceof SRLatchBE latch) latch.onNeighborChanged();
         }
         super.onPlace(state, level, pos, oldState, isMoving);
     }
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new RSLatchBE(CircuitsBETypes.RS_LATCH.get(), pos, state);
+        return new SRLatchBE(CircuitsBETypes.SR_LATCH.get(), pos, state);
     }
 
     @Override
-    public Class<RSLatchBE> getBlockEntityClass() {
-        return RSLatchBE.class;
+    public Class<SRLatchBE> getBlockEntityClass() {
+        return SRLatchBE.class;
     }
 
     @Override
-    public BlockEntityType<? extends RSLatchBE> getBlockEntityType() {
-        return CircuitsBETypes.RS_LATCH.get();
+    public BlockEntityType<? extends SRLatchBE> getBlockEntityType() {
+        return CircuitsBETypes.SR_LATCH.get();
     }
 }

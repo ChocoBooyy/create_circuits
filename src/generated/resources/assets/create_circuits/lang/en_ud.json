@@ -8,7 +8,7 @@
   "block.create_circuits.nor_gate": "ǝʇɐ⅁ ɹoN",
   "block.create_circuits.not_gate": "ǝʇɐ⅁ ʇoN",
   "block.create_circuits.or_gate": "ǝʇɐ⅁ ɹO",
-  "block.create_circuits.rs_latch": "ɥɔʇɐꞀ sᴚ",
+  "block.create_circuits.sr_latch": "ɥɔʇɐꞀ ɹS",
   "block.create_circuits.subtractor": "ɹoʇɔɐɹʇqnS",
   "block.create_circuits.xnor_gate": "ǝʇɐ⅁ ɹouX",
   "block.create_circuits.xor_gate": "ǝʇɐ⅁ ɹoX"

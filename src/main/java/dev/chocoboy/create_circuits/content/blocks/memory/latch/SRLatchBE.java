@@ -9,9 +9,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-public class RSLatchBE extends AbstractFlipFlopBE {
+public class SRLatchBE extends AbstractFlipFlopBE {
 
-    public RSLatchBE(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public SRLatchBE(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
@@ -25,7 +25,7 @@ public class RSLatchBE extends AbstractFlipFlopBE {
         int reset = inputs.b();
 
         if (reset > 0 && set > 0) {
-            // Deterministic tie-breaker: reset wins when both are high.
+            // Deterministic tie-breaker: reset wins when both are high
             setOutput(0);
         } else if (set > 0) {
             setOutput(15);

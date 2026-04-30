@@ -1,7 +1,0 @@
-{
-  "parent": "create_circuits:block/circuit_base",
-  "textures": {
-    "indicator": "create_circuits:block/rs_latch/rs_latch_11",
-    "particle": "create_circuits:block/rs_latch/rs_latch_11"
-  }
-}

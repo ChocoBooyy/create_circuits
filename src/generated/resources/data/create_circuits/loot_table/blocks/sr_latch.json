@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "create_circuits:rs_latch"
+          "name": "create_circuits:sr_latch"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "create_circuits:blocks/rs_latch"
+  "random_sequence": "create_circuits:blocks/sr_latch"
 }

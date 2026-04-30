@@ -17,7 +17,7 @@ import dev.chocoboy.create_circuits.content.blocks.logic.not.NotGateBlock;
 import dev.chocoboy.create_circuits.content.blocks.logic.or.OrGateBlock;
 import dev.chocoboy.create_circuits.content.blocks.logic.xnor.XnorGateBlock;
 import dev.chocoboy.create_circuits.content.blocks.logic.xor.XorGateBlock;
-import dev.chocoboy.create_circuits.content.blocks.memory.latch.RSLatchBlock;
+import dev.chocoboy.create_circuits.content.blocks.memory.latch.SRLatchBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -54,7 +54,7 @@ public final class CircuitsBlocks {
     public static final BlockEntry<MultiplierBlock> MULTIPLIER = gate("multiplier", MultiplierBlock::new);
     public static final BlockEntry<MaxBlock>        MAX        = gate("max",        MaxBlock::new);
     public static final BlockEntry<MinBlock>        MIN        = gate("min",        MinBlock::new);
-    public static final BlockEntry<RSLatchBlock>    RS_LATCH   = latch("rs_latch",  RSLatchBlock::new);
+    public static final BlockEntry<SRLatchBlock>    SR_LATCH   = latch("sr_latch",  SRLatchBlock::new);
 
     static <T extends AbstractSignalBlock> BlockEntry<T> gate(
             String name, NonNullFunction<BlockBehaviour.Properties, T> factory) {
@@ -127,7 +127,7 @@ public final class CircuitsBlocks {
         return entry;
     }
 
-    static <T extends RSLatchBlock> BlockEntry<T> latch(
+    static <T extends SRLatchBlock> BlockEntry<T> latch(
             String name, NonNullFunction<BlockBehaviour.Properties, T> factory) {
         BlockEntry<T> entry = REGISTRATE.block(name, factory)
             .properties(p -> p.mapColor(MapColor.METAL)
@@ -136,9 +136,9 @@ public final class CircuitsBlocks {
                 .noOcclusion()
                 .requiresCorrectToolForDrops())
             .blockstate((c, p) -> p.getVariantBuilder(c.get()).forAllStates(state -> {
-                Direction facing = state.getValue(RSLatchBlock.FACING);
-                boolean a = state.getValue(RSLatchBlock.INPUT_A);
-                boolean b = state.getValue(RSLatchBlock.INPUT_B);
+                Direction facing = state.getValue(SRLatchBlock.FACING);
+                boolean a = state.getValue(SRLatchBlock.INPUT_A);
+                boolean b = state.getValue(SRLatchBlock.INPUT_B);
                 String suffix = (a ? "1" : "0") + (b ? "1" : "0");
                 int yRot = switch (facing) {
                     case WEST  -> 90;

@@ -18,7 +18,7 @@ public final class SignalReaders {
         if (twoInput) {
             Direction left = DirectionHelper.getLeft(facing);
             Direction right = DirectionHelper.getRight(facing);
-            // A is viewer-left (block at 'right' relative to facing), B is viewer-right (block at 'left').
+            // A is viewer-left (block at 'right' relative to facing), B is viewer-right (block at 'left')
             int a = readEffectiveSignal(level, pos.relative(right), right);
             int b = readEffectiveSignal(level, pos.relative(left), left);
             return new SignalInputs(a, b);
@@ -34,8 +34,8 @@ public final class SignalReaders {
         int weak = level.getSignal(neighborPos, side);
         int direct = level.getDirectSignal(neighborPos, side);
         int analog = neighborState.hasAnalogOutputSignal()
-            ? neighborState.getAnalogOutputSignal(level, neighborPos)
-            : 0;
+                ? neighborState.getAnalogOutputSignal(level, neighborPos)
+                : 0;
         int createSpeed = CreateSignalHelper.getSpeedSignalFrom(level, neighborPos, DEFAULT_MAX_RPM);
         int createStress = CreateSignalHelper.getStressSignalFrom(level, neighborPos);
 

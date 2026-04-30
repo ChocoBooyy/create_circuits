@@ -25,6 +25,6 @@ public class CircuitsLangProvider extends LanguageProvider {
         add("block.create_circuits.multiplier", "Multiplier");
         add("block.create_circuits.max", "Max");
         add("block.create_circuits.min", "Min");
-        add("block.create_circuits.rs_latch", "RS Latch");
+        add("block.create_circuits.sr_latch", "SR Latch");
     }
 }
