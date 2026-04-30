@@ -20,18 +20,20 @@ public class SRLatchBlock extends AbstractFlipFlopBlock implements IBE<SRLatchBE
 
     public static final BooleanProperty INPUT_A = BooleanProperty.create("input_a");
     public static final BooleanProperty INPUT_B = BooleanProperty.create("input_b");
+    public static final BooleanProperty ACTIVE  = BooleanProperty.create("active");
 
     public SRLatchBlock(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(INPUT_A, false)
-                .setValue(INPUT_B, false));
+                .setValue(INPUT_B, false)
+                .setValue(ACTIVE, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, INPUT_A, INPUT_B);
+        builder.add(FACING, INPUT_A, INPUT_B, ACTIVE);
     }
 
     @Override
@@ -39,20 +41,32 @@ public class SRLatchBlock extends AbstractFlipFlopBlock implements IBE<SRLatchBE
         return defaultBlockState()
                 .setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(INPUT_A, false)
-                .setValue(INPUT_B, false);
+                .setValue(INPUT_B, false)
+                .setValue(ACTIVE, false);
+    }
+
+    private BlockState computeState(BlockState state, Level level, BlockPos pos) {
+        Direction facing = state.getValue(FACING);
+        SignalInputs inputs = SignalReaders.readInputs(level, pos, facing, true);
+        int set = inputs.a();
+        int reset = inputs.b();
+        int currentQ = level.getBlockEntity(pos) instanceof SRLatchBE latch ? latch.getOutput() : 0;
+        int newQ;
+        if (set > 0 && reset > 0) newQ = 0;
+        else if (set > 0)         newQ = 15;
+        else if (reset > 0)       newQ = 0;
+        else                      newQ = currentQ;
+        return state
+                .setValue(INPUT_A, set > 0)
+                .setValue(INPUT_B, reset > 0)
+                .setValue(ACTIVE, newQ > 0);
     }
 
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean moving) {
         if (!level.isClientSide) {
-            Direction facing = state.getValue(FACING);
-            SignalInputs inputs = SignalReaders.readInputs(level, pos, facing, true);
-            BlockState newState = state
-                    .setValue(INPUT_A, inputs.a() > 0)
-                    .setValue(INPUT_B, inputs.b() > 0);
-            if (!newState.equals(state)) {
-                level.setBlock(pos, newState, 2);
-            }
+            BlockState newState = computeState(state, level, pos);
+            if (!newState.equals(state)) level.setBlock(pos, newState, 2);
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof SRLatchBE latch) latch.onNeighborChanged();
         }
@@ -61,14 +75,8 @@ public class SRLatchBlock extends AbstractFlipFlopBlock implements IBE<SRLatchBE
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (!level.isClientSide && !state.equals(oldState)) {
-            Direction facing = state.getValue(FACING);
-            SignalInputs inputs = SignalReaders.readInputs(level, pos, facing, true);
-            BlockState newState = state
-                    .setValue(INPUT_A, inputs.a() > 0)
-                    .setValue(INPUT_B, inputs.b() > 0);
-            if (!newState.equals(state)) {
-                level.setBlock(pos, newState, 2);
-            }
+            BlockState newState = computeState(state, level, pos);
+            if (!newState.equals(state)) level.setBlock(pos, newState, 2);
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof SRLatchBE latch) latch.onNeighborChanged();
         }
@@ -81,9 +89,7 @@ public class SRLatchBlock extends AbstractFlipFlopBlock implements IBE<SRLatchBE
     }
 
     @Override
-    public Class<SRLatchBE> getBlockEntityClass() {
-        return SRLatchBE.class;
-    }
+    public Class<SRLatchBE> getBlockEntityClass() { return SRLatchBE.class; }
 
     @Override
     public BlockEntityType<? extends SRLatchBE> getBlockEntityType() {

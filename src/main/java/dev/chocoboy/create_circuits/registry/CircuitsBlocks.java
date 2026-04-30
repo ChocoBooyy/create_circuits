@@ -139,7 +139,8 @@ public final class CircuitsBlocks {
                 Direction facing = state.getValue(SRLatchBlock.FACING);
                 boolean a = state.getValue(SRLatchBlock.INPUT_A);
                 boolean b = state.getValue(SRLatchBlock.INPUT_B);
-                String suffix = (a ? "1" : "0") + (b ? "1" : "0");
+                boolean active = state.getValue(SRLatchBlock.ACTIVE);
+                String suffix = (a && b) ? "11" : a ? "10" : b ? "01" : active ? "active" : "00";
                 int yRot = switch (facing) {
                     case WEST  -> 90;
                     case NORTH -> 180;
