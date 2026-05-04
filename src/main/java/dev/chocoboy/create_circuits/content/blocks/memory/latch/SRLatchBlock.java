@@ -7,6 +7,8 @@ import dev.chocoboy.create_circuits.signal.SignalInputs;
 import dev.chocoboy.create_circuits.signal.SignalReaders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -45,42 +47,38 @@ public class SRLatchBlock extends AbstractFlipFlopBlock implements IBE<SRLatchBE
                 .setValue(ACTIVE, false);
     }
 
-    private BlockState computeState(BlockState state, Level level, BlockPos pos) {
-        Direction facing = state.getValue(FACING);
-        SignalInputs inputs = SignalReaders.readInputs(level, pos, facing, true);
-        int set = inputs.a();
-        int reset = inputs.b();
-        int currentQ = level.getBlockEntity(pos) instanceof SRLatchBE latch ? latch.getOutput() : 0;
-        int newQ;
-        if (set > 0 && reset > 0) newQ = 0;
-        else if (set > 0)         newQ = 15;
-        else if (reset > 0)       newQ = 0;
-        else                      newQ = currentQ;
-        return state
-                .setValue(INPUT_A, set > 0)
-                .setValue(INPUT_B, reset > 0)
-                .setValue(ACTIVE, newQ > 0);
-    }
-
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean moving) {
         if (!level.isClientSide) {
-            BlockState newState = computeState(state, level, pos);
-            if (!newState.equals(state)) level.setBlock(pos, newState, 2);
-            BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof SRLatchBE latch) latch.onNeighborChanged();
+            level.scheduleTick(pos, this, 1);
         }
     }
 
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (!level.isClientSide && !state.equals(oldState)) {
-            BlockState newState = computeState(state, level, pos);
-            if (!newState.equals(state)) level.setBlock(pos, newState, 2);
-            BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof SRLatchBE latch) latch.onNeighborChanged();
+            level.scheduleTick(pos, this, 1);
         }
         super.onPlace(state, level, pos, oldState, isMoving);
+    }
+
+    @Override
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        BlockEntity be = level.getBlockEntity(pos);
+        if (!(be instanceof SRLatchBE latch)) return;
+
+        latch.onNeighborChanged();
+
+        Direction facing = state.getValue(FACING);
+        SignalInputs inputs = SignalReaders.readInputs(level, pos, facing, true);
+        BlockState newState = state
+                .setValue(INPUT_A, inputs.a() > 0)
+                .setValue(INPUT_B, inputs.b() > 0)
+                .setValue(ACTIVE, latch.getOutput() > 0);
+
+        if (!newState.equals(state)) {
+            level.setBlock(pos, newState, Block.UPDATE_ALL);
+        }
     }
 
     @Override

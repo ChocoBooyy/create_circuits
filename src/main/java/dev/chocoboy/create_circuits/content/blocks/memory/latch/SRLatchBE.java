@@ -25,7 +25,6 @@ public class SRLatchBE extends AbstractFlipFlopBE {
         int reset = inputs.b();
 
         if (reset > 0 && set > 0) {
-            // Deterministic tie-breaker: reset wins when both are high
             setOutput(0);
         } else if (set > 0) {
             setOutput(15);
