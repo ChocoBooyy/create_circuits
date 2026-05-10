@@ -1,5 +1,5 @@
 {
-  "parent": "create_circuits:block/circuit_base",
+  "parent": "create_circuits:block/circuit_off",
   "textures": {
     "indicator": "create_circuits:block/multiplier/multiplier_01",
     "particle": "create_circuits:block/multiplier/multiplier_01"

@@ -18,6 +18,7 @@ import dev.chocoboy.create_circuits.content.blocks.logic.or.OrGateBlock;
 import dev.chocoboy.create_circuits.content.blocks.logic.xnor.XnorGateBlock;
 import dev.chocoboy.create_circuits.content.blocks.logic.xor.XorGateBlock;
 import dev.chocoboy.create_circuits.content.blocks.memory.latch.SRLatchBlock;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -56,6 +57,15 @@ public final class CircuitsBlocks {
     public static final BlockEntry<MinBlock>        MIN        = gate("min",        MinBlock::new);
     public static final BlockEntry<SRLatchBlock>    SR_LATCH   = latch("sr_latch",  SRLatchBlock::new);
 
+    private static int yRot(Direction facing) {
+        return switch (facing) {
+            case WEST  -> 90;
+            case NORTH -> 180;
+            case EAST  -> 270;
+            default    -> 0;
+        };
+    }
+
     static <T extends AbstractSignalBlock> BlockEntry<T> gate(
             String name, NonNullFunction<BlockBehaviour.Properties, T> factory) {
         BlockEntry<T> entry = REGISTRATE.block(name, factory)
@@ -64,24 +74,19 @@ public final class CircuitsBlocks {
                 .sound(SoundType.METAL)
                 .noOcclusion()
                 .requiresCorrectToolForDrops())
+            .addLayer(() -> RenderType::cutoutMipped)
             .blockstate((c, p) -> p.getVariantBuilder(c.get()).forAllStates(state -> {
-                Direction facing = state.getValue(AbstractSignalBlock.FACING);
                 boolean a = state.getValue(AbstractSignalBlock.INPUT_A);
                 boolean b = state.getValue(AbstractSignalBlock.INPUT_B);
                 String suffix = (a ? "1" : "0") + (b ? "1" : "0");
-                int yRot = switch (facing) {
-                    case WEST  -> 90;
-                    case NORTH -> 180;
-                    case EAST  -> 270;
-                    default    -> 0;   // SOUTH
-                };
+                String parent = c.get().isOutputHigh(a, b) ? "block/circuit_on" : "block/circuit_off";
                 String texPath = "create_circuits:block/" + c.getName() + "/" + c.getName() + "_" + suffix;
                 return ConfiguredModel.builder()
                     .modelFile(p.models()
-                        .withExistingParent(c.getName() + "_" + suffix, p.modLoc("block/circuit_base"))
+                        .withExistingParent(c.getName() + "_" + suffix, p.modLoc(parent))
                         .texture("indicator", texPath)
                         .texture("particle", texPath))
-                    .rotationY(yRot)
+                    .rotationY(yRot(state.getValue(AbstractSignalBlock.FACING)))
                     .build();
             }))
             .item()
@@ -100,23 +105,18 @@ public final class CircuitsBlocks {
                 .sound(SoundType.METAL)
                 .noOcclusion()
                 .requiresCorrectToolForDrops())
+            .addLayer(() -> RenderType::cutoutMipped)
             .blockstate((c, p) -> p.getVariantBuilder(c.get()).forAllStates(state -> {
-                Direction facing = state.getValue(AbstractSignalBlock.FACING);
                 boolean a = state.getValue(AbstractSignalBlock.INPUT_A);
                 String suffix = a ? "1" : "0";
-                int yRot = switch (facing) {
-                    case WEST  -> 90;
-                    case NORTH -> 180;
-                    case EAST  -> 270;
-                    default    -> 0;   // SOUTH
-                };
+                String parent = c.get().isOutputHigh(a, false) ? "block/circuit_on" : "block/circuit_off";
                 String texPath = "create_circuits:block/" + c.getName() + "/" + c.getName() + "_" + suffix;
                 return ConfiguredModel.builder()
                     .modelFile(p.models()
-                        .withExistingParent(c.getName() + "_" + suffix, p.modLoc("block/circuit_base"))
+                        .withExistingParent(c.getName() + "_" + suffix, p.modLoc(parent))
                         .texture("indicator", texPath)
                         .texture("particle", texPath))
-                    .rotationY(yRot)
+                    .rotationY(yRot(state.getValue(AbstractSignalBlock.FACING)))
                     .build();
             }))
             .item()
@@ -135,25 +135,20 @@ public final class CircuitsBlocks {
                 .sound(SoundType.METAL)
                 .noOcclusion()
                 .requiresCorrectToolForDrops())
+            .addLayer(() -> RenderType::cutoutMipped)
             .blockstate((c, p) -> p.getVariantBuilder(c.get()).forAllStates(state -> {
-                Direction facing = state.getValue(SRLatchBlock.FACING);
                 boolean a = state.getValue(SRLatchBlock.INPUT_A);
                 boolean b = state.getValue(SRLatchBlock.INPUT_B);
                 boolean active = state.getValue(SRLatchBlock.ACTIVE);
                 String suffix = (a && b) ? "11" : a ? "10" : b ? "01" : active ? "active" : "00";
-                int yRot = switch (facing) {
-                    case WEST  -> 90;
-                    case NORTH -> 180;
-                    case EAST  -> 270;
-                    default    -> 0;   // SOUTH
-                };
+                String parent = active ? "block/circuit_on" : "block/circuit_off";
                 String texPath = "create_circuits:block/" + c.getName() + "/" + c.getName() + "_" + suffix;
                 return ConfiguredModel.builder()
                     .modelFile(p.models()
-                        .withExistingParent(c.getName() + "_" + suffix, p.modLoc("block/circuit_base"))
+                        .withExistingParent(c.getName() + "_" + suffix, p.modLoc(parent))
                         .texture("indicator", texPath)
                         .texture("particle", texPath))
-                    .rotationY(yRot)
+                    .rotationY(yRot(state.getValue(SRLatchBlock.FACING)))
                     .build();
             }))
             .item()

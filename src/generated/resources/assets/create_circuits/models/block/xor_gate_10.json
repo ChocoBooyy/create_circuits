@@ -1,5 +1,5 @@
 {
-  "parent": "create_circuits:block/circuit_base",
+  "parent": "create_circuits:block/circuit_on",
   "textures": {
     "indicator": "create_circuits:block/xor_gate/xor_gate_10",
     "particle": "create_circuits:block/xor_gate/xor_gate_10"
