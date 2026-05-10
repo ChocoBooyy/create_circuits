@@ -15,6 +15,11 @@ public class MultiplierBlock extends AbstractSignalBlock implements IBE<Multipli
     }
 
     @Override
+    public int compute(int a, int b) {
+        return Math.min(15, a * b);
+    }
+
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new MultiplierBE(CircuitsBETypes.MULTIPLIER.get(), pos, state);
     }

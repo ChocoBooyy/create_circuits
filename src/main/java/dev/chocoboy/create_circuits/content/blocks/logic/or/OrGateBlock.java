@@ -13,6 +13,11 @@ public class OrGateBlock extends AbstractSignalBlock implements IBE<OrGateBE> {
     public OrGateBlock(Properties properties) { super(properties); }
 
     @Override
+    public int compute(int a, int b) {
+        return (a > 0 || b > 0) ? 15 : 0;
+    }
+
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new OrGateBE(CircuitsBETypes.OR_GATE.get(), pos, state);
     }

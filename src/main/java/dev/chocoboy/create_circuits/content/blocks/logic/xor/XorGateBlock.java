@@ -13,6 +13,11 @@ public class XorGateBlock extends AbstractSignalBlock implements IBE<XorGateBE> 
     public XorGateBlock(Properties properties) { super(properties); }
 
     @Override
+    public int compute(int a, int b) {
+        return ((a > 0) != (b > 0)) ? 15 : 0;
+    }
+
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new XorGateBE(CircuitsBETypes.XOR_GATE.get(), pos, state);
     }

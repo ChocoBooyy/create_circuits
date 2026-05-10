@@ -13,6 +13,11 @@ public class NandGateBlock extends AbstractSignalBlock implements IBE<NandGateBE
     public NandGateBlock(Properties properties) { super(properties); }
 
     @Override
+    public int compute(int a, int b) {
+        return (a > 0 && b > 0) ? 0 : 15;
+    }
+
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new NandGateBE(CircuitsBETypes.NAND_GATE.get(), pos, state);
     }

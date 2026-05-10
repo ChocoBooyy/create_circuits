@@ -15,6 +15,11 @@ public class MinBlock extends AbstractSignalBlock implements IBE<MinBE> {
     }
 
     @Override
+    public int compute(int a, int b) {
+        return Math.min(a, b);
+    }
+
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new MinBE(CircuitsBETypes.MIN.get(), pos, state);
     }

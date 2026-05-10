@@ -15,9 +15,4 @@ public class NotGateBE extends AbstractSignalBE {
     protected boolean isTwoInput() {
         return false;
     }
-
-    @Override
-    public int compute(int a, int b) {
-        return a > 0 ? 0 : 15;
-    }
 }

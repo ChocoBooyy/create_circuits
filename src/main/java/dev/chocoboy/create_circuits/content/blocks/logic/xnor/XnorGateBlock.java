@@ -13,6 +13,11 @@ public class XnorGateBlock extends AbstractSignalBlock implements IBE<XnorGateBE
     public XnorGateBlock(Properties properties) { super(properties); }
 
     @Override
+    public int compute(int a, int b) {
+        return ((a > 0) == (b > 0)) ? 15 : 0;
+    }
+
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new XnorGateBE(CircuitsBETypes.XNOR_GATE.get(), pos, state);
     }

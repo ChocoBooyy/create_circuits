@@ -15,6 +15,11 @@ public class MaxBlock extends AbstractSignalBlock implements IBE<MaxBE> {
     }
 
     @Override
+    public int compute(int a, int b) {
+        return Math.max(a, b);
+    }
+
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new MaxBE(CircuitsBETypes.MAX.get(), pos, state);
     }

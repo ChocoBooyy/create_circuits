@@ -15,6 +15,11 @@ public class AndGateBlock extends AbstractSignalBlock implements IBE<AndGateBE> 
     }
 
     @Override
+    public int compute(int a, int b) {
+        return (a > 0 && b > 0) ? 15 : 0;
+    }
+
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new AndGateBE(CircuitsBETypes.AND_GATE.get(), pos, state);
     }

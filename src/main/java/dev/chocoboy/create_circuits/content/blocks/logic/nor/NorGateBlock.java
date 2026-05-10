@@ -13,6 +13,11 @@ public class NorGateBlock extends AbstractSignalBlock implements IBE<NorGateBE> 
     public NorGateBlock(Properties properties) { super(properties); }
 
     @Override
+    public int compute(int a, int b) {
+        return (a > 0 || b > 0) ? 0 : 15;
+    }
+
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new NorGateBE(CircuitsBETypes.NOR_GATE.get(), pos, state);
     }

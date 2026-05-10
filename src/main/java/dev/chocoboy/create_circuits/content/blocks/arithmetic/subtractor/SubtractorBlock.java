@@ -15,6 +15,11 @@ public class SubtractorBlock extends AbstractSignalBlock implements IBE<Subtract
     }
 
     @Override
+    public int compute(int a, int b) {
+        return Math.max(0, a - b);
+    }
+
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new SubtractorBE(CircuitsBETypes.SUBTRACTOR.get(), pos, state);
     }

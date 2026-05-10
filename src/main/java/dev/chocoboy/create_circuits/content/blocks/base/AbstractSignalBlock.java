@@ -46,6 +46,12 @@ public abstract class AbstractSignalBlock extends Block {
         return true;
     }
 
+    public abstract int compute(int a, int b);
+
+    public boolean isOutputHigh(boolean a, boolean b) {
+        return compute(a ? 15 : 0, b ? 15 : 0) > 0;
+    }
+
     @Override
     public boolean isSignalSource(BlockState state) {
         return true;

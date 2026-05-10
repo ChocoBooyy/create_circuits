@@ -10,9 +10,4 @@ public class NorGateBE extends AbstractSignalBE {
     public NorGateBE(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
-
-    @Override
-    public int compute(int a, int b) {
-        return (a > 0 || b > 0) ? 0 : 15;
-    }
 }

@@ -18,6 +18,11 @@ public class NotGateBlock extends AbstractSignalBlock implements IBE<NotGateBE> 
     }
 
     @Override
+    public int compute(int a, int b) {
+        return a > 0 ? 0 : 15;
+    }
+
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new NotGateBE(CircuitsBETypes.NOT_GATE.get(), pos, state);
     }

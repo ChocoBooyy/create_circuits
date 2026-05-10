@@ -10,9 +10,4 @@ public class XorGateBE extends AbstractSignalBE {
     public XorGateBE(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
-
-    @Override
-    public int compute(int a, int b) {
-        return ((a > 0) != (b > 0)) ? 15 : 0;
-    }
 }

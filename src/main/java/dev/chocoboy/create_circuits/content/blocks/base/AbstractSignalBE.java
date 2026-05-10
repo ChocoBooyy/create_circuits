@@ -25,7 +25,9 @@ public abstract class AbstractSignalBE extends SmartBlockEntity {
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
-    public abstract int compute(int a, int b);
+    public int compute(int a, int b) {
+        return ((AbstractSignalBlock) getBlockState().getBlock()).compute(a, b);
+    }
 
     protected boolean isTwoInput() {
         return true;
