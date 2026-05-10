@@ -14,12 +14,16 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class AbstractSignalBlock extends Block {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty INPUT_A = BooleanProperty.create("input_a");
     public static final BooleanProperty INPUT_B = BooleanProperty.create("input_b");
+
+    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 2, 16);
 
     protected AbstractSignalBlock(Properties properties) {
         super(properties);
@@ -50,6 +54,11 @@ public abstract class AbstractSignalBlock extends Block {
 
     public boolean isOutputHigh(boolean a, boolean b) {
         return compute(a ? 15 : 0, b ? 15 : 0) > 0;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPE;
     }
 
     @Override
