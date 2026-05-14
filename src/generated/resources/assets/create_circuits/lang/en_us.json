@@ -12,5 +12,10 @@
   "block.create_circuits.subtractor": "Subtractor",
   "block.create_circuits.xnor_gate": "XNOR Gate",
   "block.create_circuits.xor_gate": "XOR Gate",
+  "create_circuits.ponder.and.header": "Combining signals with the AND gate",
+  "create_circuits.ponder.and.text_1": "The AND gate combines two redstone inputs into a single output",
+  "create_circuits.ponder.and.text_2": "One input alone is not enough, the gate stays dark",
+  "create_circuits.ponder.and.text_3": "With both inputs powered the gate fires and lights up the lamp",
+  "create_circuits.ponder.and.text_4": "Cut a single input and the output goes quiet again",
   "itemGroup.create_circuits": "Create: Circuits"
 }

@@ -1,6 +1,8 @@
 package dev.chocoboy.create_circuits.infrastructure.datagen;
 
 import dev.chocoboy.create_circuits.CreateCircuits;
+import dev.chocoboy.create_circuits.infrastructure.ponder.CircuitsPonderPlugin;
+import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
@@ -26,5 +28,8 @@ public class CircuitsLangProvider extends LanguageProvider {
         add("block.create_circuits.max", "Max");
         add("block.create_circuits.min", "Min");
         add("block.create_circuits.sr_latch", "SR Latch");
+
+        PonderIndex.addPlugin(new CircuitsPonderPlugin());
+        PonderIndex.getLangAccess().provideLang(CreateCircuits.MOD_ID, this::add);
     }
 }

@@ -23,7 +23,4 @@ public class CircuitsPonderPlugin implements PonderPlugin {
     public void registerTags(PonderTagRegistrationHelper<ResourceLocation> helper) {
         CircuitsPonderTags.register();
     }
-
-    @Override
-    public void registerSharedText(SharedTextRegistrationHelper helper) {}
 }
