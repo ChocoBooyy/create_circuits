@@ -22,5 +22,10 @@
   "create_circuits.ponder.nand.text_2": "One powered input alone is not enough to flip the output",
   "create_circuits.ponder.nand.text_3": "Only when both inputs are powered does the gate fall silent and the lamp go dark",
   "create_circuits.ponder.nand.text_4": "Drop a single input and the inverted output lights up again",
+  "create_circuits.ponder.nor.header": "Inverting OR with the NOR gate",
+  "create_circuits.ponder.nor.text_1": "The NOR gate fires only when neither input is powered",
+  "create_circuits.ponder.nor.text_2": "A single powered input is enough to silence the output",
+  "create_circuits.ponder.nor.text_3": "Powering the second input keeps the output dark",
+  "create_circuits.ponder.nor.text_4": "Cut both inputs and the gate fires again",
   "itemGroup.create_circuits": "Create: Circuits"
 }
