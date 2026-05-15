@@ -16,5 +16,8 @@ public final class CircuitsPonderScenes {
 
         HELPER.forComponents(CircuitsBlocks.AND_GATE)
                 .addStoryBoard("and", LogicScenes::andGate, CircuitsPonderTags.CIRCUITS);
+
+        HELPER.forComponents(CircuitsBlocks.NAND_GATE)
+                .addStoryBoard("nand", LogicScenes::nandGate, CircuitsPonderTags.CIRCUITS);
     }
 }

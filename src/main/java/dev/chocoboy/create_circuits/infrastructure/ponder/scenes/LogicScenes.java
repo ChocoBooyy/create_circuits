@@ -66,4 +66,60 @@ public final class LogicScenes {
                 .pointAt(util.vector().topOf(gatePos));
         scene.idle(90);
     }
+
+    public static void nandGate(SceneBuilder builder, SceneBuildingUtil util) {
+        CreateSceneBuilder scene = new CreateSceneBuilder(builder);
+        scene.title("nand", "Inverting AND with the NAND gate");
+        scene.configureBasePlate(0, 0, 5);
+        scene.showBasePlate();
+        scene.idle(5);
+
+        BlockPos leverA = util.grid().at(1, 1, 1);
+        BlockPos gatePos = util.grid().at(1, 1, 2);
+        BlockPos leverB = util.grid().at(1, 1, 3);
+        BlockPos lampPos = util.grid().at(3, 1, 2);
+
+        scene.world().showSection(util.select().layer(1), Direction.DOWN);
+        scene.idle(20);
+
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("The NAND gate inverts AND: it stays lit while at least one input is missing")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(lampPos));
+        scene.idle(100);
+
+        scene.effects().indicateRedstone(leverA);
+        scene.world().toggleRedstonePower(util.select().position(leverA));
+        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_A);
+        scene.idle(15);
+        scene.overlay().showText(80)
+                .attachKeyFrame()
+                .text("One powered input alone is not enough to flip the output")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(gatePos));
+        scene.idle(90);
+
+        scene.effects().indicateRedstone(leverB);
+        scene.world().toggleRedstonePower(util.select().position(leverB));
+        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_B);
+        scene.world().toggleRedstonePower(util.select().fromTo(2, 1, 2, 3, 1, 2));
+        scene.idle(15);
+        scene.overlay().showText(100)
+                .attachKeyFrame()
+                .text("Only when both inputs are powered does the gate fall silent and the lamp go dark")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(lampPos));
+        scene.idle(110);
+
+        scene.world().toggleRedstonePower(util.select().position(leverA));
+        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_A);
+        scene.world().toggleRedstonePower(util.select().fromTo(2, 1, 2, 3, 1, 2));
+        scene.idle(15);
+        scene.overlay().showText(80)
+                .text("Drop a single input and the inverted output lights up again")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(lampPos));
+        scene.idle(90);
+    }
 }

@@ -17,5 +17,10 @@
   "create_circuits.ponder.and.text_2": "One input alone is not enough, the gate stays dark",
   "create_circuits.ponder.and.text_3": "With both inputs powered the gate fires and lights up the lamp",
   "create_circuits.ponder.and.text_4": "Cut a single input and the output goes quiet again",
+  "create_circuits.ponder.nand.header": "Inverting AND with the NAND gate",
+  "create_circuits.ponder.nand.text_1": "The NAND gate inverts AND: it stays lit while at least one input is missing",
+  "create_circuits.ponder.nand.text_2": "One powered input alone is not enough to flip the output",
+  "create_circuits.ponder.nand.text_3": "Only when both inputs are powered does the gate fall silent and the lamp go dark",
+  "create_circuits.ponder.nand.text_4": "Drop a single input and the inverted output lights up again",
   "itemGroup.create_circuits": "Create: Circuits"
 }
