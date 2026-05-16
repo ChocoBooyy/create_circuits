@@ -28,5 +28,8 @@ public final class CircuitsPonderScenes {
 
         HELPER.forComponents(CircuitsBlocks.XOR_GATE)
                 .addStoryBoard("xor", LogicScenes::xorGate, CircuitsPonderTags.CIRCUITS);
+
+        HELPER.forComponents(CircuitsBlocks.XNOR_GATE)
+                .addStoryBoard("xnor", LogicScenes::xnorGate, CircuitsPonderTags.CIRCUITS);
     }
 }
