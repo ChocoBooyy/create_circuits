@@ -25,5 +25,8 @@ public final class CircuitsPonderScenes {
 
         HELPER.forComponents(CircuitsBlocks.OR_GATE)
                 .addStoryBoard("or", LogicScenes::orGate, CircuitsPonderTags.CIRCUITS);
+
+        HELPER.forComponents(CircuitsBlocks.XOR_GATE)
+                .addStoryBoard("xor", LogicScenes::xorGate, CircuitsPonderTags.CIRCUITS);
     }
 }

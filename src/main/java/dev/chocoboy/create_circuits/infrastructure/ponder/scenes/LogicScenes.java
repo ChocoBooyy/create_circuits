@@ -238,4 +238,61 @@ public final class LogicScenes {
                 .pointAt(util.vector().topOf(lampPos));
         scene.idle(90);
     }
+
+    public static void xorGate(SceneBuilder builder, SceneBuildingUtil util) {
+        CreateSceneBuilder scene = new CreateSceneBuilder(builder);
+        scene.title("xor", "Comparing signals with the XOR gate");
+        scene.configureBasePlate(0, 0, 5);
+        scene.showBasePlate();
+        scene.idle(5);
+
+        BlockPos leverA = util.grid().at(1, 1, 1);
+        BlockPos gatePos = util.grid().at(1, 1, 2);
+        BlockPos leverB = util.grid().at(1, 1, 3);
+        BlockPos lampPos = util.grid().at(3, 1, 2);
+
+        scene.world().showSection(util.select().layer(1), Direction.DOWN);
+        scene.idle(20);
+
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("The XOR gate fires only when its two inputs disagree")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(gatePos));
+        scene.idle(100);
+
+        scene.effects().indicateRedstone(leverA);
+        scene.world().toggleRedstonePower(util.select().position(leverA));
+        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_A);
+        scene.world().toggleRedstonePower(util.select().fromTo(2, 1, 2, 3, 1, 2));
+        scene.idle(15);
+        scene.overlay().showText(80)
+                .attachKeyFrame()
+                .text("Powering a single input drives the output high")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(lampPos));
+        scene.idle(90);
+
+        scene.effects().indicateRedstone(leverB);
+        scene.world().toggleRedstonePower(util.select().position(leverB));
+        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_B);
+        scene.world().toggleRedstonePower(util.select().fromTo(2, 1, 2, 3, 1, 2));
+        scene.idle(15);
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("Matching inputs cancel out and the gate falls silent again")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(gatePos));
+        scene.idle(100);
+
+        scene.world().toggleRedstonePower(util.select().position(leverA));
+        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_A);
+        scene.world().toggleRedstonePower(util.select().fromTo(2, 1, 2, 3, 1, 2));
+        scene.idle(15);
+        scene.overlay().showText(80)
+                .text("Break the symmetry by dropping one input and the lamp lights again")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(lampPos));
+        scene.idle(90);
+    }
 }

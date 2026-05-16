@@ -32,5 +32,10 @@
   "create_circuits.ponder.or.text_2": "Powering a single input is already enough to light the lamp",
   "create_circuits.ponder.or.text_3": "Powering both inputs keeps the output high",
   "create_circuits.ponder.or.text_4": "Only when every input drops does the gate fall silent",
+  "create_circuits.ponder.xor.header": "Comparing signals with the XOR gate",
+  "create_circuits.ponder.xor.text_1": "The XOR gate fires only when its two inputs disagree",
+  "create_circuits.ponder.xor.text_2": "Powering a single input drives the output high",
+  "create_circuits.ponder.xor.text_3": "Matching inputs cancel out and the gate falls silent again",
+  "create_circuits.ponder.xor.text_4": "Break the symmetry by dropping one input and the lamp lights again",
   "itemGroup.create_circuits": "Create: Circuits"
 }
