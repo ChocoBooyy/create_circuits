@@ -180,4 +180,62 @@ public final class LogicScenes {
                 .pointAt(util.vector().topOf(lampPos));
         scene.idle(90);
     }
+
+    public static void orGate(SceneBuilder builder, SceneBuildingUtil util) {
+        CreateSceneBuilder scene = new CreateSceneBuilder(builder);
+        scene.title("or", "Combining signals with the OR gate");
+        scene.configureBasePlate(0, 0, 5);
+        scene.showBasePlate();
+        scene.idle(5);
+
+        BlockPos leverA = util.grid().at(1, 1, 1);
+        BlockPos gatePos = util.grid().at(1, 1, 2);
+        BlockPos leverB = util.grid().at(1, 1, 3);
+        BlockPos lampPos = util.grid().at(3, 1, 2);
+
+        scene.world().showSection(util.select().layer(1), Direction.DOWN);
+        scene.idle(20);
+
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("The OR gate fires whenever at least one input is powered")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(gatePos));
+        scene.idle(100);
+
+        scene.effects().indicateRedstone(leverA);
+        scene.world().toggleRedstonePower(util.select().position(leverA));
+        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_A);
+        scene.world().toggleRedstonePower(util.select().fromTo(2, 1, 2, 3, 1, 2));
+        scene.idle(15);
+        scene.overlay().showText(80)
+                .attachKeyFrame()
+                .text("Powering a single input is already enough to light the lamp")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(lampPos));
+        scene.idle(90);
+
+        scene.effects().indicateRedstone(leverB);
+        scene.world().toggleRedstonePower(util.select().position(leverB));
+        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_B);
+        scene.idle(15);
+        scene.overlay().showText(80)
+                .attachKeyFrame()
+                .text("Powering both inputs keeps the output high")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(gatePos));
+        scene.idle(90);
+
+        scene.world().toggleRedstonePower(util.select().position(leverA));
+        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_A);
+        scene.world().toggleRedstonePower(util.select().position(leverB));
+        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_B);
+        scene.world().toggleRedstonePower(util.select().fromTo(2, 1, 2, 3, 1, 2));
+        scene.idle(15);
+        scene.overlay().showText(80)
+                .text("Only when every input drops does the gate fall silent")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(lampPos));
+        scene.idle(90);
+    }
 }

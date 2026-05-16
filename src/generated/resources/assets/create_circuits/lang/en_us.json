@@ -27,5 +27,10 @@
   "create_circuits.ponder.nor.text_2": "A single powered input is enough to silence the output",
   "create_circuits.ponder.nor.text_3": "Powering the second input keeps the output dark",
   "create_circuits.ponder.nor.text_4": "Cut both inputs and the gate fires again",
+  "create_circuits.ponder.or.header": "Combining signals with the OR gate",
+  "create_circuits.ponder.or.text_1": "The OR gate fires whenever at least one input is powered",
+  "create_circuits.ponder.or.text_2": "Powering a single input is already enough to light the lamp",
+  "create_circuits.ponder.or.text_3": "Powering both inputs keeps the output high",
+  "create_circuits.ponder.or.text_4": "Only when every input drops does the gate fall silent",
   "itemGroup.create_circuits": "Create: Circuits"
 }
