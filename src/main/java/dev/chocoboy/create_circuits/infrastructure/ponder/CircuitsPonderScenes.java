@@ -31,5 +31,8 @@ public final class CircuitsPonderScenes {
 
         HELPER.forComponents(CircuitsBlocks.XNOR_GATE)
                 .addStoryBoard("xnor", LogicScenes::xnorGate, CircuitsPonderTags.CIRCUITS);
+
+        HELPER.forComponents(CircuitsBlocks.NOT_GATE)
+                .addStoryBoard("not", LogicScenes::notGate, CircuitsPonderTags.CIRCUITS);
     }
 }

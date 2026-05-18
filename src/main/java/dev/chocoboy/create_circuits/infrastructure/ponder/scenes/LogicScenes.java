@@ -352,4 +352,48 @@ public final class LogicScenes {
                 .pointAt(util.vector().topOf(lampPos));
         scene.idle(90);
     }
+
+    public static void notGate(SceneBuilder builder, SceneBuildingUtil util) {
+        CreateSceneBuilder scene = new CreateSceneBuilder(builder);
+        scene.title("not", "Inverting a signal with the NOT gate");
+        scene.configureBasePlate(0, 0, 5);
+        scene.showBasePlate();
+        scene.idle(5);
+
+        BlockPos leverPos = util.grid().at(1, 1, 2);
+        BlockPos gatePos = util.grid().at(2, 1, 2);
+        BlockPos lampPos = util.grid().at(3, 1, 2);
+
+        scene.world().showSection(util.select().layer(1), Direction.DOWN);
+        scene.idle(20);
+
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("The NOT gate flips its only input: idle in means powered out")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(lampPos));
+        scene.idle(100);
+
+        scene.effects().indicateRedstone(leverPos);
+        scene.world().toggleRedstonePower(util.select().position(leverPos));
+        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_A);
+        scene.world().toggleRedstonePower(util.select().fromTo(2, 1, 2, 3, 1, 2));
+        scene.idle(15);
+        scene.overlay().showText(80)
+                .attachKeyFrame()
+                .text("Power the input and the output drops, leaving the lamp dark")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(lampPos));
+        scene.idle(90);
+
+        scene.world().toggleRedstonePower(util.select().position(leverPos));
+        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_A);
+        scene.world().toggleRedstonePower(util.select().fromTo(2, 1, 2, 3, 1, 2));
+        scene.idle(15);
+        scene.overlay().showText(80)
+                .text("Cut the input again and the gate lights the lamp back up")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(lampPos));
+        scene.idle(90);
+    }
 }
