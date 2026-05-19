@@ -2,6 +2,7 @@ package dev.chocoboy.create_circuits.infrastructure.ponder;
 
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import com.tterrag.registrate.util.entry.RegistryEntry;
+import dev.chocoboy.create_circuits.infrastructure.ponder.scenes.ArithmeticScenes;
 import dev.chocoboy.create_circuits.infrastructure.ponder.scenes.LogicScenes;
 import dev.chocoboy.create_circuits.registry.CircuitsBlocks;
 import net.createmod.ponder.api.registration.PonderSceneRegistrationHelper;
@@ -34,5 +35,8 @@ public final class CircuitsPonderScenes {
 
         HELPER.forComponents(CircuitsBlocks.NOT_GATE)
                 .addStoryBoard("not", LogicScenes::notGate, CircuitsPonderTags.CIRCUITS);
+
+        HELPER.forComponents(CircuitsBlocks.SUBTRACTOR)
+                .addStoryBoard("subtractor", ArithmeticScenes::subtractor, CircuitsPonderTags.CIRCUITS);
     }
 }
