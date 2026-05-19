@@ -42,7 +42,7 @@ public final class ArithmeticScenes {
                 .pointAt(util.vector().topOf(gatePos));
         scene.idle(110);
 
-        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 15, 0);
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 15, 0, 15);
         scene.overlay().showText(90)
                 .attachKeyFrame()
                 .text("Set the first input to 15 and nothing on the second: the full signal passes")
@@ -50,7 +50,7 @@ public final class ArithmeticScenes {
                 .pointAt(util.vector().topOf(nixiePos));
         scene.idle(100);
 
-        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 15, 7);
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 15, 7, 8);
         scene.overlay().showText(100)
                 .attachKeyFrame()
                 .text("Raise the second input to 7 and the output drops to 15 minus 7, or 8")
@@ -58,7 +58,7 @@ public final class ArithmeticScenes {
                 .pointAt(util.vector().topOf(nixiePos));
         scene.idle(110);
 
-        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 9, 9);
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 9, 9, 0);
         scene.overlay().showText(90)
                 .attachKeyFrame()
                 .text("Match the two inputs and the output is exactly zero")
@@ -66,7 +66,7 @@ public final class ArithmeticScenes {
                 .pointAt(util.vector().topOf(nixiePos));
         scene.idle(100);
 
-        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 4, 12);
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 4, 12, 0);
         scene.overlay().showText(100)
                 .text("If the second input is larger, the result is clamped at zero rather than going negative")
                 .placeNearTarget()
@@ -74,10 +74,60 @@ public final class ArithmeticScenes {
         scene.idle(110);
     }
 
+    public static void adder(SceneBuilder builder, SceneBuildingUtil util) {
+        CreateSceneBuilder scene = new CreateSceneBuilder(builder);
+        scene.title("adder", "Adding redstone with the Adder");
+        scene.configureBasePlate(0, 0, 5);
+        scene.showBasePlate();
+        scene.idle(5);
+
+        BlockPos leverA = util.grid().at(1, 1, 1);
+        BlockPos gatePos = util.grid().at(1, 1, 2);
+        BlockPos leverB = util.grid().at(1, 1, 3);
+        BlockPos wirePos = util.grid().at(2, 1, 2);
+        BlockPos nixiePos = util.grid().at(3, 1, 2);
+
+        Selection leverASel = util.select().position(leverA);
+        Selection leverBSel = util.select().position(leverB);
+        Selection nixieSel = util.select().position(nixiePos);
+
+        scene.world().showSection(util.select().layer(1), Direction.DOWN);
+        scene.idle(20);
+
+        scene.overlay().showText(100)
+                .attachKeyFrame()
+                .text("The Adder returns the sum of its two inputs, capped at 15")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(gatePos));
+        scene.idle(110);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 3, 4, 7);
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("Set the inputs to 3 and 4 and the output reads exactly 7")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(100);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 8, 6, 14);
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("Crank both inputs up and the result climbs with them")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(100);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 12, 9, 15);
+        scene.overlay().showText(100)
+                .text("If the sum would exceed 15, the output stays capped at 15")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(110);
+    }
+
     private static void applyStep(CreateSceneBuilder scene, Selection leverASel, BlockPos leverA,
                                   Selection leverBSel, BlockPos leverB, BlockPos gatePos,
-                                  BlockPos wirePos, Selection nixieSel, int a, int b) {
-        int output = Math.max(0, a - b);
+                                  BlockPos wirePos, Selection nixieSel, int a, int b, int output) {
         scene.effects().indicateRedstone(leverA);
         scene.effects().indicateRedstone(leverB);
         scene.world().modifyBlockEntityNBT(leverASel, AnalogLeverBlockEntity.class,
