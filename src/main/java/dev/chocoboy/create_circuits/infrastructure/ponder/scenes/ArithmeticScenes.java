@@ -1,11 +1,15 @@
 package dev.chocoboy.create_circuits.infrastructure.ponder.scenes;
 
+import com.simibubi.create.content.redstone.analogLever.AnalogLeverBlockEntity;
+import com.simibubi.create.content.redstone.nixieTube.NixieTubeBlockEntity;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import dev.chocoboy.create_circuits.content.blocks.base.AbstractSignalBlock;
 import net.createmod.ponder.api.scene.SceneBuilder;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;
+import net.createmod.ponder.api.scene.Selection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.RedStoneWireBlock;
 
 public final class ArithmeticScenes {
 
@@ -21,49 +25,71 @@ public final class ArithmeticScenes {
         BlockPos leverA = util.grid().at(1, 1, 1);
         BlockPos gatePos = util.grid().at(1, 1, 2);
         BlockPos leverB = util.grid().at(1, 1, 3);
-        BlockPos lampPos = util.grid().at(3, 1, 2);
+        BlockPos wirePos = util.grid().at(2, 1, 2);
+        BlockPos nixiePos = util.grid().at(3, 1, 2);
+
+        Selection leverASel = util.select().position(leverA);
+        Selection leverBSel = util.select().position(leverB);
+        Selection nixieSel = util.select().position(nixiePos);
 
         scene.world().showSection(util.select().layer(1), Direction.DOWN);
         scene.idle(20);
 
         scene.overlay().showText(100)
                 .attachKeyFrame()
-                .text("The Subtractor outputs the first input minus the second, clamped at zero")
+                .text("The Subtractor returns the first input minus the second, clamped at zero")
                 .placeNearTarget()
                 .pointAt(util.vector().topOf(gatePos));
         scene.idle(110);
 
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 15, 0);
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("Set the first input to 15 and nothing on the second: the full signal passes")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(100);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 15, 7);
+        scene.overlay().showText(100)
+                .attachKeyFrame()
+                .text("Raise the second input to 7 and the output drops to 15 minus 7, or 8")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(110);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 9, 9);
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("Match the two inputs and the output is exactly zero")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(100);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 4, 12);
+        scene.overlay().showText(100)
+                .text("If the second input is larger, the result is clamped at zero rather than going negative")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(110);
+    }
+
+    private static void applyStep(CreateSceneBuilder scene, Selection leverASel, BlockPos leverA,
+                                  Selection leverBSel, BlockPos leverB, BlockPos gatePos,
+                                  BlockPos wirePos, Selection nixieSel, int a, int b) {
+        int output = Math.max(0, a - b);
         scene.effects().indicateRedstone(leverA);
-        scene.world().toggleRedstonePower(util.select().position(leverA));
-        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_A);
-        scene.world().toggleRedstonePower(util.select().fromTo(2, 1, 2, 3, 1, 2));
-        scene.idle(15);
-        scene.overlay().showText(90)
-                .attachKeyFrame()
-                .text("With only the first input powered, the full signal passes through")
-                .placeNearTarget()
-                .pointAt(util.vector().topOf(lampPos));
-        scene.idle(100);
-
         scene.effects().indicateRedstone(leverB);
-        scene.world().toggleRedstonePower(util.select().position(leverB));
-        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_B);
-        scene.world().toggleRedstonePower(util.select().fromTo(2, 1, 2, 3, 1, 2));
+        scene.world().modifyBlockEntityNBT(leverASel, AnalogLeverBlockEntity.class,
+                nbt -> nbt.putInt("State", a));
+        scene.world().modifyBlockEntityNBT(leverBSel, AnalogLeverBlockEntity.class,
+                nbt -> nbt.putInt("State", b));
+        scene.world().modifyBlock(gatePos, s -> s
+                .setValue(AbstractSignalBlock.INPUT_A, a > 0)
+                .setValue(AbstractSignalBlock.INPUT_B, b > 0), false);
+        scene.world().modifyBlock(wirePos, s -> s.setValue(RedStoneWireBlock.POWER, output), false);
+        scene.world().modifyBlockEntityNBT(nixieSel, NixieTubeBlockEntity.class,
+                nbt -> nbt.putInt("RedstoneStrength", output));
         scene.idle(15);
-        scene.overlay().showText(90)
-                .attachKeyFrame()
-                .text("Power the second input to subtract from the first and silence the output")
-                .placeNearTarget()
-                .pointAt(util.vector().topOf(gatePos));
-        scene.idle(100);
-
-        scene.world().toggleRedstonePower(util.select().position(leverA));
-        scene.world().cycleBlockProperty(gatePos, AbstractSignalBlock.INPUT_A);
-        scene.idle(15);
-        scene.overlay().showText(90)
-                .text("Subtracting from nothing also yields nothing, the output stays at zero")
-                .placeNearTarget()
-                .pointAt(util.vector().topOf(lampPos));
-        scene.idle(100);
     }
 }
