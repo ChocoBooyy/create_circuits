@@ -184,6 +184,57 @@ public final class ArithmeticScenes {
         scene.idle(100);
     }
 
+    public static void max(SceneBuilder builder, SceneBuildingUtil util) {
+        CreateSceneBuilder scene = new CreateSceneBuilder(builder);
+        scene.title("max", "Picking the larger signal with Max");
+        scene.configureBasePlate(0, 0, 5);
+        scene.showBasePlate();
+        scene.idle(5);
+
+        BlockPos leverA = util.grid().at(1, 1, 1);
+        BlockPos gatePos = util.grid().at(1, 1, 2);
+        BlockPos leverB = util.grid().at(1, 1, 3);
+        BlockPos wirePos = util.grid().at(2, 1, 2);
+        BlockPos nixiePos = util.grid().at(3, 1, 2);
+
+        Selection leverASel = util.select().position(leverA);
+        Selection leverBSel = util.select().position(leverB);
+        Selection nixieSel = util.select().position(nixiePos);
+
+        scene.world().showSection(util.select().layer(1), Direction.DOWN);
+        scene.idle(20);
+
+        scene.overlay().showText(100)
+                .attachKeyFrame()
+                .text("Max forwards whichever of its two inputs is larger")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(gatePos));
+        scene.idle(110);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 7, 3, 7);
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("Inputs of 7 and 3 produce 7 on the output")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(100);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 5, 11, 11);
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("Raise the second input above the first and the output follows it")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(100);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 8, 8, 8);
+        scene.overlay().showText(90)
+                .text("With both inputs equal, the gate reports that same value")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(100);
+    }
+
     private static void applyStep(CreateSceneBuilder scene, Selection leverASel, BlockPos leverA,
                                   Selection leverBSel, BlockPos leverB, BlockPos gatePos,
                                   BlockPos wirePos, Selection nixieSel, int a, int b, int output) {
