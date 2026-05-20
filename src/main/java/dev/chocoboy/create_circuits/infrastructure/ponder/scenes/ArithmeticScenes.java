@@ -125,6 +125,65 @@ public final class ArithmeticScenes {
         scene.idle(110);
     }
 
+    public static void multiplier(SceneBuilder builder, SceneBuildingUtil util) {
+        CreateSceneBuilder scene = new CreateSceneBuilder(builder);
+        scene.title("multiplier", "Multiplying redstone with the Multiplier");
+        scene.configureBasePlate(0, 0, 5);
+        scene.showBasePlate();
+        scene.idle(5);
+
+        BlockPos leverA = util.grid().at(1, 1, 1);
+        BlockPos gatePos = util.grid().at(1, 1, 2);
+        BlockPos leverB = util.grid().at(1, 1, 3);
+        BlockPos wirePos = util.grid().at(2, 1, 2);
+        BlockPos nixiePos = util.grid().at(3, 1, 2);
+
+        Selection leverASel = util.select().position(leverA);
+        Selection leverBSel = util.select().position(leverB);
+        Selection nixieSel = util.select().position(nixiePos);
+
+        scene.world().showSection(util.select().layer(1), Direction.DOWN);
+        scene.idle(20);
+
+        scene.overlay().showText(100)
+                .attachKeyFrame()
+                .text("The Multiplier returns the product of its two inputs, capped at 15")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(gatePos));
+        scene.idle(110);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 1, 5, 5);
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("With one input at 1 the output mirrors the other input")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(100);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 3, 4, 12);
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("3 times 4 reads 12 on the output")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(100);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 5, 5, 15);
+        scene.overlay().showText(100)
+                .attachKeyFrame()
+                .text("5 times 5 would be 25, but the output clamps to 15")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(110);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 0, 12, 0);
+        scene.overlay().showText(90)
+                .text("Anything multiplied by zero falls back to zero")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(100);
+    }
+
     private static void applyStep(CreateSceneBuilder scene, Selection leverASel, BlockPos leverA,
                                   Selection leverBSel, BlockPos leverB, BlockPos gatePos,
                                   BlockPos wirePos, Selection nixieSel, int a, int b, int output) {

@@ -41,5 +41,8 @@ public final class CircuitsPonderScenes {
 
         HELPER.forComponents(CircuitsBlocks.ADDER)
                 .addStoryBoard("adder", ArithmeticScenes::adder, CircuitsPonderTags.CIRCUITS);
+
+        HELPER.forComponents(CircuitsBlocks.MULTIPLIER)
+                .addStoryBoard("multiplier", ArithmeticScenes::multiplier, CircuitsPonderTags.CIRCUITS);
     }
 }
