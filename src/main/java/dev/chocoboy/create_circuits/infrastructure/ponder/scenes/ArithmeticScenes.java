@@ -235,6 +235,57 @@ public final class ArithmeticScenes {
         scene.idle(100);
     }
 
+    public static void min(SceneBuilder builder, SceneBuildingUtil util) {
+        CreateSceneBuilder scene = new CreateSceneBuilder(builder);
+        scene.title("min", "Picking the smaller signal with Min");
+        scene.configureBasePlate(0, 0, 5);
+        scene.showBasePlate();
+        scene.idle(5);
+
+        BlockPos leverA = util.grid().at(1, 1, 1);
+        BlockPos gatePos = util.grid().at(1, 1, 2);
+        BlockPos leverB = util.grid().at(1, 1, 3);
+        BlockPos wirePos = util.grid().at(2, 1, 2);
+        BlockPos nixiePos = util.grid().at(3, 1, 2);
+
+        Selection leverASel = util.select().position(leverA);
+        Selection leverBSel = util.select().position(leverB);
+        Selection nixieSel = util.select().position(nixiePos);
+
+        scene.world().showSection(util.select().layer(1), Direction.DOWN);
+        scene.idle(20);
+
+        scene.overlay().showText(100)
+                .attachKeyFrame()
+                .text("Min forwards whichever of its two inputs is smaller")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(gatePos));
+        scene.idle(110);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 7, 3, 3);
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("Inputs of 7 and 3 produce 3 on the output")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(100);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 11, 5, 5);
+        scene.overlay().showText(90)
+                .attachKeyFrame()
+                .text("Whichever lever is lower wins, regardless of which side it's on")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(100);
+
+        applyStep(scene, leverASel, leverA, leverBSel, leverB, gatePos, wirePos, nixieSel, 0, 15, 0);
+        scene.overlay().showText(90)
+                .text("A zero input drags the output down to zero")
+                .placeNearTarget()
+                .pointAt(util.vector().topOf(nixiePos));
+        scene.idle(100);
+    }
+
     private static void applyStep(CreateSceneBuilder scene, Selection leverASel, BlockPos leverA,
                                   Selection leverBSel, BlockPos leverB, BlockPos gatePos,
                                   BlockPos wirePos, Selection nixieSel, int a, int b, int output) {

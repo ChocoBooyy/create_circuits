@@ -47,5 +47,8 @@ public final class CircuitsPonderScenes {
 
         HELPER.forComponents(CircuitsBlocks.MAX)
                 .addStoryBoard("max", ArithmeticScenes::max, CircuitsPonderTags.CIRCUITS);
+
+        HELPER.forComponents(CircuitsBlocks.MIN)
+                .addStoryBoard("min", ArithmeticScenes::min, CircuitsPonderTags.CIRCUITS);
     }
 }
