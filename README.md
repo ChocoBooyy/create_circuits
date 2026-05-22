@@ -12,6 +12,9 @@
   <a href="https://www.curseforge.com/minecraft/mc-mods/create-circuits">
     <img src="https://img.shields.io/badge/CurseForge-Download-f16436?logo=curseforge&logoColor=white" alt="Download on CurseForge" />
   </a>
+  <a href="https://modrinth.com/mod/create-circuits">
+    <img src="https://img.shields.io/badge/Modrinth-Download-1bd96a?logo=modrinth&logoColor=white" alt="Download on Modrinth" />
+  </a>
 </p>
 
 <h2 align="center">Features</h2>
