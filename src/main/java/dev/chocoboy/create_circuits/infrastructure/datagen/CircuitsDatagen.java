@@ -1,6 +1,5 @@
 package dev.chocoboy.create_circuits.infrastructure.datagen;
 
-import dev.chocoboy.create_circuits.CreateCircuits;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;

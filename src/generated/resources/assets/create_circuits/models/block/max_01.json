@@ -1,0 +1,7 @@
+{
+  "parent": "create_circuits:block/circuit_on",
+  "textures": {
+    "indicator": "create_circuits:block/max/max_01",
+    "particle": "create_circuits:block/max/max_01"
+  }
+}

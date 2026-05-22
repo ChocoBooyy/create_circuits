@@ -1,0 +1,7 @@
+{
+  "parent": "create_circuits:block/circuit_off",
+  "textures": {
+    "indicator": "create_circuits:block/sr_latch/sr_latch_11",
+    "particle": "create_circuits:block/sr_latch/sr_latch_11"
+  }
+}

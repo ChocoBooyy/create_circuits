@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "A": {
+      "item": "create_circuits:and_gate"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "T": {
+      "item": "minecraft:redstone_torch"
+    }
+  },
+  "pattern": [
+    " T ",
+    "AIA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_circuits:nand_gate"
+  }
+}

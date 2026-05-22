@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "E": {
+      "item": "create:electron_tube"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "CEC",
+    "I I"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_circuits:xor_gate"
+  }
+}

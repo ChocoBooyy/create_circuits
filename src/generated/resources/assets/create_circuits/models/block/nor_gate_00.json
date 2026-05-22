@@ -1,0 +1,7 @@
+{
+  "parent": "create_circuits:block/circuit_on",
+  "textures": {
+    "indicator": "create_circuits:block/nor_gate/nor_gate_00",
+    "particle": "create_circuits:block/nor_gate/nor_gate_00"
+  }
+}

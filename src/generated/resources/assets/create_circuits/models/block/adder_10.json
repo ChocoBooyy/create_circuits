@@ -1,0 +1,7 @@
+{
+  "parent": "create_circuits:block/circuit_on",
+  "textures": {
+    "indicator": "create_circuits:block/adder/adder_10",
+    "particle": "create_circuits:block/adder/adder_10"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "E": {
+      "item": "create:electron_tube"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "RGR",
+    "IEI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_circuits:multiplier"
+  }
+}

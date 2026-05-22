@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.chocoboy.create_circuits.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": ["KineticBlockEntityAccessor"],
+  "client": [],
+  "injectors": { "defaultRequire": 1 }
+}
